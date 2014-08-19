@@ -266,6 +266,13 @@ CCPUInfo::CCPUInfo(void)
     m_fProcTemperature = fopen("/sys/class/thermal/thermal_zone0/temp", "r");  // On Raspberry PIs
 
   m_fCPUFreq = fopen ("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq", "r");
+  if (!m_fCPUFreq)
+  {
+    m_cpuInfoForFreq = true;
+    m_fCPUFreq = fopen("/proc/cpuinfo", "r");
+  }
+  else
+    m_cpuInfoForFreq = false;
 
 
   FILE* fCPUInfo = fopen("/proc/cpuinfo", "r");
@@ -528,13 +535,31 @@ float CCPUInfo::getCPUFrequency()
   return (float)hz;
 #else
   int value = 0;
-  if (m_fCPUFreq)
+  if (m_fCPUFreq && !m_cpuInfoForFreq)
   {
     rewind(m_fCPUFreq);
     fflush(m_fCPUFreq);
     fscanf(m_fCPUFreq, "%d", &value);
+    value /= 1000.0;
   }
-  return value / 1000.0;
+  if (m_fCPUFreq && m_cpuInfoForFreq)
+  {
+    rewind(m_fCPUFreq);
+    fflush(m_fCPUFreq);
+    float mhz, avg=0.0;
+    int n, cpus=0;
+    while(EOF!=(n=fscanf(m_fCPUFreq," MHz : %f ", &mhz)))
+    {
+      if (n>0) {
+        cpus++;
+        avg += mhz;
+      }
+      fscanf(m_fCPUFreq,"%*s");
+    }
+
+    value = avg/cpus;
+  }
+  return value;
 #endif
 }
 

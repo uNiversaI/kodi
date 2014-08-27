@@ -104,6 +104,7 @@ CCPUInfo::CCPUInfo(void)
 {
 #ifdef TARGET_POSIX
   m_fProcStat = m_fProcTemperature = m_fCPUFreq = NULL;
+  m_cpuInfoForFreq = false;
 #elif defined(TARGET_WINDOWS)
   m_cpuQueryFreq = NULL;
   m_cpuQueryLoad = NULL;

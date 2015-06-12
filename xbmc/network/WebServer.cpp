@@ -56,7 +56,7 @@
 #define MAX_POST_BUFFER_SIZE 2048
 
 #define PAGE_FILE_NOT_FOUND "<html><head><title>File not found</title></head><body>File not found</body></html>"
-#define NOT_SUPPORTED       "<html><head><title>Not Supported</title></head><body>The method you are trying to use is not supported by this server</body></html>"
+#define NOT_SUPPORTED       "<html><head><title>Not supported</title></head><body>The method you are trying to use is not supported by this server</body></html>"
 
 #define HEADER_VALUE_NO_CACHE "no-cache"
 
@@ -132,7 +132,7 @@ int CWebServer::AskForAuthentication(struct MHD_Connection *connection)
   struct MHD_Response *response = MHD_create_response_from_data(0, NULL, MHD_NO, MHD_NO);
   if (!response)
   {
-    CLog::Log(LOGERROR, "CWebServer: unable to create HTTP Unauthorized response");
+    CLog::Log(LOGERROR, "CWebServer: Unable to create HTTP Unauthorized response");
     return MHD_NO;
   }
 
@@ -140,7 +140,7 @@ int CWebServer::AskForAuthentication(struct MHD_Connection *connection)
   ret |= AddHeader(response, MHD_HTTP_HEADER_CONNECTION, "close");
   if (!ret)
   {
-    CLog::Log(LOGERROR, "CWebServer: unable to prepare HTTP Unauthorized response");
+    CLog::Log(LOGERROR, "CWebServer: Unable to prepare HTTP Unauthorized response");
     MHD_destroy_response(response);
     return MHD_NO;
   }
@@ -190,7 +190,7 @@ int CWebServer::AnswerToConnection(void *cls, struct MHD_Connection *connection,
 {
   if (cls == NULL || con_cls == NULL || *con_cls == NULL)
   {
-    CLog::Log(LOGERROR, "CWebServer: invalid request received");
+    CLog::Log(LOGERROR, "CWebServer: Invalid request received");
     return MHD_NO;
   }
 
@@ -300,7 +300,7 @@ int CWebServer::AnswerToConnection(void *cls, struct MHD_Connection *connection,
                 struct MHD_Response *response = MHD_create_response_from_data(0, NULL, MHD_NO, MHD_NO);
                 if (response == NULL)
                 {
-                  CLog::Log(LOGERROR, "CWebServer: failed to create a HTTP 304 response");
+                  CLog::Log(LOGERROR, "CWebServer: Failed to create a HTTP 304 response");
                   return MHD_NO;
                 }
 
@@ -351,7 +351,7 @@ int CWebServer::AnswerToConnection(void *cls, struct MHD_Connection *connection,
               // MHD doesn't seem to be able to handle this post request
               if (conHandler->postprocessor == NULL)
               {
-                CLog::Log(LOGERROR, "CWebServer: unable to create HTTP POST processor for %s", url);
+                CLog::Log(LOGERROR, "CWebServer: Unable to create HTTP POST processor for %s", url);
 
                 delete conHandler->requestHandler;
 
@@ -379,7 +379,7 @@ int CWebServer::AnswerToConnection(void *cls, struct MHD_Connection *connection,
     {
       if (conHandler->requestHandler == NULL)
       {
-        CLog::Log(LOGERROR, "CWebServer: cannot handle partial HTTP POST for %s request because there is no valid request handler available", url);
+        CLog::Log(LOGERROR, "CWebServer: Cannot handle partial HTTP POST for %s request because there is no valid request handler available", url);
         return SendErrorResponse(connection, MHD_HTTP_INTERNAL_SERVER_ERROR, methodType);
       }
 
@@ -423,7 +423,7 @@ int CWebServer::AnswerToConnection(void *cls, struct MHD_Connection *connection,
     }
   }
 
-  CLog::Log(LOGERROR, "CWebServer: couldn't find any request handler for %s", url);
+  CLog::Log(LOGERROR, "CWebServer: Couldn't find any request handler for %s", url);
   return SendErrorResponse(connection, MHD_HTTP_NOT_FOUND, methodType);
 }
 
@@ -444,7 +444,7 @@ int CWebServer::HandlePostField(void *cls, enum MHD_ValueKind kind, const char *
   if (conHandler == NULL || conHandler->requestHandler == NULL ||
       key == NULL || data == NULL || size == 0)
   {
-    CLog::Log(LOGERROR, "CWebServer: unable to handle HTTP POST field");
+    CLog::Log(LOGERROR, "CWebServer: Unable to handle HTTP POST field");
     return MHD_NO;
   }
 
@@ -461,7 +461,7 @@ int CWebServer::HandleRequest(IHTTPRequestHandler *handler)
   int ret = handler->HandleRequest();
   if (ret == MHD_NO)
   {
-    CLog::Log(LOGERROR, "CWebServer: failed to handle HTTP request for %s", request.pathUrl.c_str());
+    CLog::Log(LOGERROR, "CWebServer: Failed to handle HTTP request for %s", request.pathUrl.c_str());
     delete handler;
     return SendErrorResponse(request.connection, MHD_HTTP_INTERNAL_SERVER_ERROR, request.method);
   }
@@ -495,14 +495,14 @@ int CWebServer::HandleRequest(IHTTPRequestHandler *handler)
       break;
 
     default:
-      CLog::Log(LOGERROR, "CWebServer: internal error while HTTP request handler processed %s", request.pathUrl.c_str());
+      CLog::Log(LOGERROR, "CWebServer: Internal error while HTTP request handler processed %s", request.pathUrl.c_str());
       delete handler;
       return SendErrorResponse(request.connection, MHD_HTTP_INTERNAL_SERVER_ERROR, request.method);
   }
 
   if (ret == MHD_NO)
   {
-    CLog::Log(LOGERROR, "CWebServer: failed to create HTTP response for %s", request.pathUrl.c_str());
+    CLog::Log(LOGERROR, "CWebServer: Failed to create HTTP response for %s", request.pathUrl.c_str());
     delete handler;
     return SendErrorResponse(request.connection, MHD_HTTP_INTERNAL_SERVER_ERROR, request.method);
   }
@@ -609,7 +609,7 @@ int CWebServer::CreateMemoryDownloadResponse(IHTTPRequestHandler *handler, struc
   if ((request.ranges.IsEmpty() && responseRanges.size() > 1) ||
      (!request.ranges.IsEmpty() && responseRanges.size() > request.ranges.Size()))
   {
-    CLog::Log(LOGWARNING, "CWebServer: response contains more ranges (%d) than the request asked for (%d)", (int)responseRanges.size(), (int)request.ranges.Size());
+    CLog::Log(LOGWARNING, "CWebServer: Response contains more ranges (%d) than the request asked for (%d)", (int)responseRanges.size(), (int)request.ranges.Size());
     return SendErrorResponse(request.connection, MHD_HTTP_INTERNAL_SERVER_ERROR, request.method);
   }
 
@@ -621,7 +621,7 @@ int CWebServer::CreateMemoryDownloadResponse(IHTTPRequestHandler *handler, struc
     // check if the range is valid
     if (!responseRange.IsValid())
     {
-      CLog::Log(LOGWARNING, "CWebServer: invalid response data with range start at %" PRId64 " and end at %" PRId64, responseRange.GetFirstPosition(), responseRange.GetLastPosition());
+      CLog::Log(LOGWARNING, "CWebServer: Invalid response data with range start at %" PRId64 " and end at %" PRId64, responseRange.GetFirstPosition(), responseRange.GetLastPosition());
       return SendErrorResponse(request.connection, MHD_HTTP_INTERNAL_SERVER_ERROR, request.method);
     }
 
@@ -735,7 +735,7 @@ int CWebServer::CreateRedirect(struct MHD_Connection *connection, const string &
   response = MHD_create_response_from_data(0, NULL, MHD_NO, MHD_NO);
   if (response == NULL)
   {
-    CLog::Log(LOGERROR, "CWebServer: failed to create HTTP redirect response to %s", strURL.c_str());
+    CLog::Log(LOGERROR, "CWebServer: Failed to create HTTP redirect response to %s", strURL.c_str());
     return MHD_NO;
   }
 
@@ -847,7 +847,7 @@ int CWebServer::CreateFileDownloadResponse(IHTTPRequestHandler *handler, struct 
                                                   &CWebServer::ContentReaderFreeCallback);
     if (response == NULL)
     {
-      CLog::Log(LOGERROR, "CWebServer: failed to create a HTTP response for %s to be filled from %s", request.pathUrl.c_str(), filePath.c_str());
+      CLog::Log(LOGERROR, "CWebServer: Failed to create a HTTP response for %s to be filled from %s", request.pathUrl.c_str(), filePath.c_str());
       return MHD_NO;
     }
 
@@ -862,7 +862,7 @@ int CWebServer::CreateFileDownloadResponse(IHTTPRequestHandler *handler, struct 
     response = MHD_create_response_from_data(0, NULL, MHD_NO, MHD_NO);
     if (response == NULL)
     {
-      CLog::Log(LOGERROR, "CWebServer: failed to create a HTTP HEAD response for %s", request.pathUrl.c_str());
+      CLog::Log(LOGERROR, "CWebServer: Failed to create a HTTP HEAD response for %s", request.pathUrl.c_str());
       return MHD_NO;
     }
 
@@ -900,7 +900,7 @@ int CWebServer::CreateErrorResponse(struct MHD_Connection *connection, int respo
   response = MHD_create_response_from_data(payloadSize, payload, MHD_NO, MHD_NO);
   if (response == NULL)
   {
-    CLog::Log(LOGERROR, "CWebServer: failed to create a HTTP %d error response", responseType);
+    CLog::Log(LOGERROR, "CWebServer: Failed to create a HTTP %d error response", responseType);
     return MHD_NO;
   }
 
@@ -912,7 +912,7 @@ int CWebServer::CreateMemoryDownloadResponse(struct MHD_Connection *connection, 
   response = MHD_create_response_from_data(size, const_cast<void*>(data), free ? MHD_YES : MHD_NO, copy ? MHD_YES : MHD_NO);
   if (response == NULL)
   {
-    CLog::Log(LOGERROR, "CWebServer: failed to create a HTTP download response");
+    CLog::Log(LOGERROR, "CWebServer: Failed to create a HTTP download response");
     return MHD_NO;
   }
 
@@ -952,7 +952,7 @@ void* CWebServer::UriRequestLogger(void *cls, const char *uri)
   conHandler->requestHandler = NULL;
 
   // log the full URI
-  CLog::Log(LOGDEBUG, "webserver: request received for %s", uri);
+  CLog::Log(LOGDEBUG, "webserver: Request received for %s", uri);
 
   // return the connection handler so that we can access it in AnswerToConnection as con_cls
   return conHandler;
@@ -1175,7 +1175,7 @@ bool CWebServer::Stop()
     CLog::Log(LOGNOTICE, "WebServer: Stopped the webserver");
   }
   else 
-    CLog::Log(LOGNOTICE, "WebServer: Stopped failed because its not running");
+    CLog::Log(LOGNOTICE, "WebServer: Stopping failed because its not running");
 
   return !m_running;
 }

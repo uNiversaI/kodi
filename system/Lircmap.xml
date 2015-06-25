@@ -60,6 +60,8 @@
 		<blue>Blue</blue>
 		<teletext>Teletext</teletext>
 		<print>Print</print>
+		<aspect>Aspect</aspect>
+		<slideshow>Slideshow</slideshow>
 
 		<!-- new kernel-based lirc button names -->
 		<eject>KEY_EJECTCD</eject>

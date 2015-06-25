@@ -100,6 +100,8 @@
 #define XINPUT_IR_REMOTE_DVD_MENU       239
 
 #define XINPUT_IR_REMOTE_PRINT          240
+#define XINPUT_IR_REMOTE_ASPECT         241
+#define XINPUT_IR_REMOTE_SLIDESHOW      242
 
 // Reserved 256 -> ...
 // Key.h

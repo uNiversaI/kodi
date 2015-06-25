@@ -91,6 +91,8 @@
       <eight>JumpSMS8</eight>
       <nine>JumpSMS9</nine>
       <print>Screenshot</print>
+      <aspect>DecreasePAR</aspect>
+      <slideshow>SlideShow(MyPictures[,recursive])</slideshow>
     </remote>
   </global>
   <Home>
@@ -203,8 +205,8 @@
       <language>AudioNextLanguage</language>
       <playlist>Playlist</playlist>
       <hash>AudioNextLanguage</hash>
-      <pageplus>SkipNext</pageplus>
-      <pageminus>SkipPrevious</pageminus>
+      <pageplus>IncreasePAR</pageplus>
+      <pageminus>DecreasePAR</pageminus>
     </remote>
   </FullscreenVideo>
   <VideoTimeSeek>

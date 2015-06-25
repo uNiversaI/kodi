@@ -1502,6 +1502,8 @@ uint32_t CButtonTranslator::TranslateRemoteString(const char *szButton)
   else if (strButton == "topmenu") buttonCode = XINPUT_IR_REMOTE_TOP_MENU;
   else if (strButton == "dvdmenu") buttonCode = XINPUT_IR_REMOTE_DVD_MENU;
   else if (strButton == "print") buttonCode = XINPUT_IR_REMOTE_PRINT;
+  else if (strButton == "aspect") buttonCode = XINPUT_IR_REMOTE_ASPECT;
+  else if (strButton == "slideshow") buttonCode = XINPUT_IR_REMOTE_SLIDESHOW;
   else CLog::Log(LOGERROR, "Remote Translator: Can't find button %s", strButton.c_str());
   return buttonCode;
 }

@@ -167,6 +167,30 @@
 		<zero>0</zero>
 	</remote>
 
+	<remote device="XBOX-ONE">
+		<power>XboxFancyButton</power>
+		<display>Guide</display>
+		<menu>Menu</menu>
+		<left>Left</left>
+		<right>Right</right>
+		<up>Up</up>
+		<down>Down</down>
+		<select>Select</select>
+		<back>Back</back>
+		<info>Info</info>
+		<volumeplus>VolumeUp</volumeplus>
+		<volumeminus>VolumeDown</volumeminus>
+		<mute>Mute</mute>
+		<pageplus>ChannelUp</pageplus>
+		<pageminus>ChannelDown</pageminus>
+		<reverse>Rewind</reverse>
+		<play>Play</play>
+		<forward>FastForward</forward>
+		<skipminus>Previous</skipminus>
+		<stop>Stop</stop>
+		<skipplus>Next</skipplus>
+	</remote>
+
 	<remote device="PinnacleSysPCTVRemote">
 		<play>KEY_PLAY</play>
 		<pause>KEY_PAUSE</pause>

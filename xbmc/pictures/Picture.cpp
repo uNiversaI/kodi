@@ -247,6 +247,8 @@ bool CPicture::CacheTexture(uint8_t *pixels, uint32_t width, uint32_t height, ui
     uint32_t *buffer = new uint32_t[dest_width * dest_height];
     if (buffer)
     {
+	  CLogLog(LOGNOTICE, "Currently active scaling algorithm is %s", CPictureScalingAlgorithm::ToString(scalingAlgorithm).c_str());
+	  
       if (ScaleImage(pixels, width, height, pitch,
                      (uint8_t *)buffer, dest_width, dest_height, dest_width * 4,
                      scalingAlgorithm))

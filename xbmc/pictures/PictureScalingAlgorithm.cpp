@@ -60,6 +60,7 @@ std::string CPictureScalingAlgorithm::ToString(Algorithm scalingAlgorithm)
     return algorithm->second.name;
 
   return "";
+  CLogLog(LOGNOTICE, "Currently active scaling algorithm is %s", CPictureScalingAlgorithmToString(scalingAlgorithm).c_str());
 }
 
 int CPictureScalingAlgorithm::ToSwscale(const std::string& scalingAlgorithm)

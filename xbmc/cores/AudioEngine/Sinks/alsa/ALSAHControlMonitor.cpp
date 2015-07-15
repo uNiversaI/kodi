@@ -124,7 +124,7 @@ int CALSAHControlMonitor::HCTLCallback(snd_hctl_elem_t *elem, unsigned int mask)
 
   if (mask & SND_CTL_EVENT_MASK_VALUE)
   {
-    CLog::Log(LOGDEBUG, "CALSAHControlMonitor - Monitored ALSA hctl value changed");
+    CLog::Log(LOGDEBUG, "CALSAHControlMonitor - Monitored ALSA hctl value changed with mask value of %u", mask);
 
     /*
      * Currently we just re-enumerate on any change.

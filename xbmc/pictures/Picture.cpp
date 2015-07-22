@@ -221,7 +221,8 @@ bool CPicture::CacheTexture(uint8_t *pixels, uint32_t width, uint32_t height, ui
     dest_height = height;
   if (scalingAlgorithm == CPictureScalingAlgorithm::NoAlgorithm)
     scalingAlgorithm = g_advancedSettings.m_imageScalingAlgorithm;
-
+    
+    CLogLog(LOGNOTICE, "Currently active scaling algorithm is %s", CPictureScalingAlgorithm::ToString(scalingAlgorithm).c_str());
   uint32_t max_height = g_advancedSettings.m_imageRes;
   if (g_advancedSettings.m_fanartRes > g_advancedSettings.m_imageRes)
   { // 16x9 images larger than the fanart res use that rather than the image res
@@ -247,8 +248,6 @@ bool CPicture::CacheTexture(uint8_t *pixels, uint32_t width, uint32_t height, ui
     uint32_t *buffer = new uint32_t[dest_width * dest_height];
     if (buffer)
     {
-	  CLogLog(LOGNOTICE, "Currently active scaling algorithm is %s", CPictureScalingAlgorithm::ToString(scalingAlgorithm).c_str());
-	  
       if (ScaleImage(pixels, width, height, pitch,
                      (uint8_t *)buffer, dest_width, dest_height, dest_width * 4,
                      scalingAlgorithm))

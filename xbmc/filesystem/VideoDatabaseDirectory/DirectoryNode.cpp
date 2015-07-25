@@ -124,6 +124,7 @@ CDirectoryNode* CDirectoryNode::CreateNode(NODE_TYPE Type, const std::string& st
     return new CDirectoryNodeTitleMovies(strName, pParent);
   case NODE_TYPE_TITLE_TVSHOWS:
     return new CDirectoryNodeTitleTvShows(strName, pParent);
+  case NODE_TYPE_INPROGRESS:
   case NODE_TYPE_MOVIES_OVERVIEW:
     return new CDirectoryNodeMoviesOverview(strName, pParent);
   case NODE_TYPE_TVSHOWS_OVERVIEW:

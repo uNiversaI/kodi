@@ -185,6 +185,8 @@ bool CVideoDatabaseDirectory::GetLabel(const std::string& strDirectory, std::str
     {
     case NODE_TYPE_TITLE_MOVIES:
     case NODE_TYPE_TITLE_TVSHOWS:
+    case NODE_TYPE_INPROGRESS:
+      strLabel = g_localizeStrings.Get(575); break;
     case NODE_TYPE_TITLE_MUSICVIDEOS:
       strLabel = g_localizeStrings.Get(369); break;
     case NODE_TYPE_ACTOR: // Actor
@@ -246,6 +248,14 @@ std::string CVideoDatabaseDirectory::GetIcon(const std::string &strDirectory)
       if (CSettings::Get().GetBool("myvideos.flatten"))
         return "DefaultTVShows.png";
       return "DefaultTVShowTitle.png";
+    }
+    return "";
+  case NODE_TYPE_INPROGRESS:
+    if (URIUtils::PathEquals(path, "videodb://tvshows/inprogress/"))
+    {
+      home->SetProperty("LatestEpisode.Title", g_localizeStrings.Get(525));
+      TVShowFilter.order = "dateAdded desc, idShow desc";
+      TVShowFilter.where = "watchedcount != 0 AND watchedcount != totalcount";
     }
     return "";
   case NODE_TYPE_TITLE_MUSICVIDEOS:

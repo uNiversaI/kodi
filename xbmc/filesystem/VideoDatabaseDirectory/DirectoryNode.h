@@ -54,7 +54,8 @@ namespace XFILE
       NODE_TYPE_MUSICVIDEOS_ALBUM,
       NODE_TYPE_SETS,
       NODE_TYPE_COUNTRY,
-      NODE_TYPE_TAGS
+      NODE_TYPE_TAGS,
+      NODE_TYPE_INPROGRESS
     } NODE_TYPE;
 
     typedef struct {

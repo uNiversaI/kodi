@@ -124,6 +124,8 @@ std::string CDirectoryNodeGrouped::GetContentType(const CQueryParams &params) co
     case NODE_TYPE_TITLE_MOVIES:
     case NODE_TYPE_TITLE_MUSICVIDEOS:
     case NODE_TYPE_TITLE_TVSHOWS:
+    case NODE_TYPE_INPROGRESS:
+      return "inprogress"
     case NODE_TYPE_TVSHOWS_OVERVIEW:
     default:
       break;

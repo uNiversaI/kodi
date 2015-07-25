@@ -44,6 +44,8 @@ namespace XFILE
       long GetMVideoId() const { return m_idMVideo; }
       long GetSetId() const { return m_idSet; }
       long GetTagId() const { return m_idTag; }
+      long GetInprogressId() const { return m_idInprogress; }
+    break;
 
     protected:
       void SetQueryParam(NODE_TYPE NodeType, const std::string& strNodeName);
@@ -65,6 +67,7 @@ namespace XFILE
       long m_idAlbum;
       long m_idSet;
       long m_idTag;
+      long m_idInprogres;
     };
   }
 }

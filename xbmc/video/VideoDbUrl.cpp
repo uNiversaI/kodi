@@ -86,6 +86,11 @@ bool CVideoDbUrl::parse()
       m_itemType = "tvshows";
       break;
 
+    case VIDEODATABASEDIRECTORY::NODE_TYPE_INPROGRESS:
+      m_type = "inprogress";
+      m_itemType = "inprogress";
+      break;
+
     case VIDEODATABASEDIRECTORY::NODE_TYPE_SEASONS:
       m_type = "tvshows";
       m_itemType = "seasons";

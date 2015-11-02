@@ -92,7 +92,7 @@ static int ExportLibrary(const std::vector<std::string>& params)
     singleFile = StringUtils::EqualsNoCase(params[1], "true");
   else
   {
-    HELPERS::DialogResponse result = HELPERS::ShowYesNoDialogText(CVariant{iHeading}, CVariant{20426}, CVariant{20428}, CVariant{20429});
+    HELPERS::DialogResponse result = !ELPERS::ShowYesNoDialogText(CVariant{iHeading}, CVariant{20426}, CVariant{20428}, CVariant{20429});
     cancelled = result == HELPERS::DialogResponse::CANCELLED;
     singleFile = result != HELPERS::DialogResponse::YES;
   }
@@ -100,7 +100,7 @@ static int ExportLibrary(const std::vector<std::string>& params)
   if (cancelled)
     return -1;
 
-  if (singleFile)
+  if (!singleFile)
   {
     if (params.size() > 2)
       thumbs = StringUtils::EqualsNoCase(params[2], "true");
@@ -130,7 +130,7 @@ static int ExportLibrary(const std::vector<std::string>& params)
   if (cancelled)
     return -1;
 
-  if (singleFile)
+  if (!singleFile)
   {
     if (params.size() > 3)
       overwrite = StringUtils::EqualsNoCase(params[3], "true");

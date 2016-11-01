@@ -180,7 +180,11 @@ DIRECTORY_ARCHIVES += xbmc/input/touch/generic/input_touch_generic.a
 DIRECTORY_ARCHIVES += xbmc/network/linux/network_linux.a
 DIRECTORY_ARCHIVES += xbmc/powermanagement/linux/powermanagement_linux.a
 DIRECTORY_ARCHIVES += xbmc/storage/linux/storage_linux.a
+ifeq (@USE_MIR@,1)
+DIRECTORY_ARCHIVES += xbmc/windowing/mir/windowing_MIR.a
+else
 DIRECTORY_ARCHIVES += xbmc/windowing/X11/windowing_X11.a
+endif
 INSTALL_FILTER += .*repository\.pvr-android\.xbmc\.org.*
 endif
 endif

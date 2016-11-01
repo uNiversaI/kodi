@@ -172,6 +172,8 @@ missing_headers="Could not find some required headers. Please see the README for
 missing_program="Could not find a required program. Please see the README for your platform."
 alsa_disabled="== ALSA support disabled. =="
 dbus_disabled="== DBUS support disabled. =="
+x11_enabled="== Mir enabled. =="
+x11_disabled="== Mir disabled. =="
 x11_enabled="== X11 enabled. =="
 x11_disabled="== X11 disabled. =="
 pulse_not_found="== Could not find libpulse. PulseAudio support disabled. =="
@@ -285,6 +287,12 @@ AC_ARG_ENABLE([profiling],
   [enable gprof profiling (default is no)])],
   [use_profiling=$enableval],
   [use_profiling=no])
+
+AC_ARG_ENABLE([mir],
+  [AS_HELP_STRING([--enable-mir],
+  [enable mir (default is no) 'Linux Only'])],
+  [use_mir=$enableval],
+  [use_mir=no])
 
 AC_ARG_ENABLE([x11],
   [AS_HELP_STRING([--enable-x11],
@@ -1289,6 +1297,24 @@ else
 fi
 AC_SUBST(USE_MDNSEMBEDDED)
 
+# Mir
+if test "$use_mir" = "yes"; then
+  AC_MSG_NOTICE($mir_enabled)
+  use_x11=no
+  # No support for mir yet
+  use_vaapi=no
+  use_vdpau=no
+  PKG_CHECK_MODULES([MIR],    [mirclient],
+    [INCLUDES="$INCLUDES $MIR_CFLAGS"; LIBS="$LIBS $MIR_LIBS"],
+    AC_MSG_ERROR($missing_library))
+  PKG_CHECK_MODULES([EGL], [egl],
+    [INCLUDES="$INCLUDES $EGL_CFLAGS"; LIBS="$LIBS $EGL_LIBS"],
+    AC_MSG_ERROR($missing_library))
+  AC_DEFINE([HAVE_MIR], [1], [Define to 1 if you have Mir libs installed.])
+else
+  AC_MSG_RESULT($mir_disabled)
+fi
+
 # X11
 if test "$use_x11" = "yes"; then
   AC_MSG_NOTICE($x11_enabled)
@@ -1904,6 +1930,14 @@ else
   final_message="$final_message\n  OpenMax:\tNo"
 fi
 
+if test "$use_mir" = "yes"; then
+  USE_MIR=1
+  final_message="$final_message\n  MIR:\t\tYes"
+else
+  USE_MIR=0
+  final_message="$final_message\n  MIR:\t\tNo"
+fi
+
 if test "$use_x11" = "yes"; then
   USE_X11=1
   final_message="$final_message\n  X11:\t\tYes"
@@ -2327,6 +2361,7 @@ AC_SUBST(HAVE_SSE)
 AC_SUBST(HAVE_SSE2)
 AC_SUBST(HAVE_SSE4)
 AC_SUBST(USE_MMAL)
+AC_SUBST(USE_MIR)
 AC_SUBST(USE_X11)
 AC_SUBST(USE_OPTICAL_DRIVE)
 

@@ -6,6 +6,9 @@ if(DEPENDS_DIR)
   list(APPEND CMAKE_PREFIX_PATH ${DEPENDS_DIR})
 endif()
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3")
+
 # Set CORE_SOURCE_DIR and CORE_BUILD_DIR
 get_filename_component(CORE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/../.. ABSOLUTE)
 set(CORE_BUILD_DIR build)
@@ -118,6 +121,12 @@ if(CORE_SYSTEM_NAME STREQUAL android)
   list(APPEND required_deps Zip)
 endif()
 
+# Missing mir support in these libraries
+if (ENABLE_MIR)
+  set(ENABLE_VAAPI OFF CACHE BOOL "Disabling VAAPI since no mir support" FORCE)
+  set(ENABLE_VDPAU OFF CACHE BOOL "Disabling VDPAU since no mir support" FORCE)
+endif()
+
 # Optional dependencies
 set(optional_deps MicroHttpd MySqlClient SSH XSLT
                   Alsa UDEV DBus Avahi SmbClient
@@ -199,20 +208,30 @@ endif()
 if(NOT WIN32)
   core_optional_dep(OpenGl)
   if(OPENGL_FOUND)
-    core_optional_dep(X ENABLE_X11)
-    core_optional_dep(LibDRM ENABLE_X11)
-    core_optional_dep(XRandR ENABLE_X11)
+    if (ENABLE_MIR)
+      core_optional_dep(Mir ENABLE_MIR)
+      core_require_dep(EGL)
+    else()
+      core_optional_dep(X ENABLE_X11)
+      core_optional_dep(XRandR ENABLE_X11)
+      core_optional_dep(LibDRM ENABLE_X11)
+    endif()
   else()
     core_optional_dep(OpenGLES)
     if(OPENGLES_FOUND)
-      core_optional_dep(X ENABLE_X11)
-      core_optional_dep(LibDRM ENABLE_X11)
+      if (ENABLE_MIR)
+        core_optional_dep(Mir ENABLE_MIR)
+      else()
+        core_optional_dep(X ENABLE_X11)
+        core_optional_dep(LibDRM ENABLE_X11)
+      endif()
     endif()
   endif()
   if(NOT APPLE)
     core_require_dep(EGL)
   endif()
 endif()
+
 
 if(CORE_SYSTEM_NAME STREQUAL android OR CORE_SYSTEM_NAME STREQUAL linux)
   core_optional_dep(AML)

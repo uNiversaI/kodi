@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WINDOW_SYSTEM_MIR_GL_CONTEXT_EGL_H_
+#define WINDOW_SYSTEM_MIR_GL_CONTEXT_EGL_H_
+
 #include <mir_toolkit/mir_client_library.h>
 #include "EGL/egl.h"
 
@@ -27,7 +30,6 @@ public:
   EGLSurface m_eglSurface;
   EGLContext m_eglContext;
   EGLConfig m_eglConfig;
-
-  //std::string m_extPrefix;
-  //std::string m_extensions;
 };
+
+#endif // WINDOW_SYSTEM_MIR_GL_CONTEXT_EGL_H_

@@ -61,7 +61,7 @@ void CWinSystemMirGLESContext::PresentRenderImpl(bool rendered)
 // FIXME Implement
 bool CWinSystemMirGLESContext::IsExtSupported(const char* extension)
 {
-    return false;
+  return false;
 }
 
 #endif

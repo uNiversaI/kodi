@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WINDOW_SYSTEM_MIR_H_
+#define WINDOW_SYSTEM_MIR_H_
+
 #include "windowing/WinSystem.h"
 #include "threads/CriticalSection.h"
 
@@ -38,3 +41,5 @@ protected:
   MirSurface* m_surface;
   MirPixelFormat m_pixel_format;
 };
+
+#endif // WINDOW_SYSTEM_MIR_H_

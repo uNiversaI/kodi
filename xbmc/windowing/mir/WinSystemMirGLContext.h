@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WINDOW_SYSTEM_MIR_GL_CONTEXT_H_
+#define WINDOW_SYSTEM_MIR_GL_CONTEXT_H_
+
 #include "WinSystemMir.h"
 #include "GLContextEGL.h"
 #include "rendering/gl/RenderSystemGL.h"
@@ -32,3 +35,5 @@ private:
 XBMC_GLOBAL_REF(CWinSystemMirGLContext, g_Windowing);
 #define g_Windowing XBMC_GLOBAL_USE(CWinSystemMirGLContext)
 #endif
+
+#endif // WINDOW_SYSTEM_MIR_GL_CONTEXT_H_

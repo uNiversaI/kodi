@@ -8,7 +8,6 @@
 
 #include <unordered_map>
 
-
 namespace
 {
 
@@ -246,7 +245,9 @@ void MirHandleTouchEvent(MirTouchEvent const* tev)
 
   if (action == mir_touch_action_up)
   {
-    // FIXME Need to test this... since reapding the input manager it just turns this tap into a mouse motion?
+    // FIXME Need to test this... since reading
+    // the input manager it just turns this tap into a mouse motion?
+    // Does this send a up/down?
     new_event.touch.action = ACTION_TOUCH_TAP;
 
     new_event.touch.x = mir_touch_event_axis_value(tev, 0, mir_touch_axis_x);

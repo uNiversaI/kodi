@@ -39,8 +39,8 @@ bool CGLContextEGL::CreateDisplay(MirConnection* connection,
 
   if (m_eglDisplay == EGL_NO_DISPLAY)
   {
-      CLog::Log(LOGERROR, "failed to get egl display\n");
-      return false;
+    CLog::Log(LOGERROR, "failed to get egl display\n");
+    return false;
   }
 
   if (!eglInitialize(m_eglDisplay, &major, &minor))
@@ -72,7 +72,7 @@ bool CGLContextEGL::CreateContext()
   int client_version = 2;
 
   const EGLint context_atrribs[] = {
-      EGL_CONTEXT_CLIENT_VERSION, client_version, EGL_NONE
+    EGL_CONTEXT_CLIENT_VERSION, client_version, EGL_NONE
   };
 
   m_eglContext = eglCreateContext(m_eglDisplay, m_eglConfig,
@@ -164,7 +164,7 @@ void CGLContextEGL::SwapBuffers()
   eglSwapBuffers(m_eglDisplay, m_eglSurface);
 }
 
+// TODO
 void CGLContextEGL::QueryExtensions()
 {
-    // TODO
 }

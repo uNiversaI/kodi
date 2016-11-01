@@ -60,7 +60,7 @@ void CWinSystemMirGLContext::PresentRenderImpl(bool rendered)
 // FIXME Implement
 bool CWinSystemMirGLContext::IsExtSupported(const char* extension)
 {
-    return false;
+  return false;
 }
 
 #endif

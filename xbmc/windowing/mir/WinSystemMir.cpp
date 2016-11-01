@@ -7,11 +7,6 @@
 #include <string.h>
 #include "guilib/GraphicContext.h"
 
-namespace
-{
-
-}
-
 CWinSystemMir::CWinSystemMir() :
   m_connection(nullptr),
   m_surface(nullptr),

@@ -27,6 +27,7 @@
 #include <mir_toolkit/mir_client_library.h>
 
 #include "../WinEvents.h"
+#include <mutex>
 #include <queue>
 
 extern void MirHandleEvent(MirSurface* surface, MirEvent const* ev, void* context);
@@ -41,6 +42,7 @@ public:
 
 private:
   std::queue<XBMC_Event> events;
+  std::mutex mutex;
 };
 
 #endif // WINDOW_SYSTEM_EVENTS_MIR_H_

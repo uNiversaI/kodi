@@ -311,16 +311,18 @@ void MirHandleEvent(MirSurface* surface, MirEvent const* ev, void* context)
   }
 }
 
-// FIXME Add mutex/cond for thread read/write issues with push + pump
-// Waiting for an event loop from mir where we can poll directly from an FD
 bool CWinEventsMir::MessagePump()
 {
-  auto ret = !events.empty();
+  auto ret = GetQueueSize();
 
-  while (!events.empty())
+  while (GetQueueSize())
   {
-    auto e = events.front();
-    events.pop();
+    XBMC_Event e;
+    {
+      std::lock_guard<decltype(mutex)> event_lock(mutex);
+      e = events.front();
+      events.pop();
+    }
     g_application.OnEvent(e);
   }
 
@@ -329,10 +331,12 @@ bool CWinEventsMir::MessagePump()
 
 size_t CWinEventsMir::GetQueueSize()
 {
+  std::lock_guard<decltype(mutex)> event_lock(mutex);
   return events.size();
 }
 
 void CWinEventsMir::MessagePush(XBMC_Event* ev)
 {
+  std::lock_guard<decltype(mutex)> event_lock(mutex);
   events.push(*ev);
 }

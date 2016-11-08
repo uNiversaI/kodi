@@ -4,10 +4,10 @@
 #
 # This will will define the following variables::
 #
-# MIR_FOUND - system has Mir
+# MIR_FOUND        - the system has Mir
 # MIR_INCLUDE_DIRS - the Mir include directory
-# MIR_LIBRARIES - the Mir libraries
-# MIR_DEFINITIONS - the Mir definitions
+# MIR_LIBRARIES    - the Mir libraries
+# MIR_DEFINITIONS  - the Mir definitions
 #
 # and the following imported targets::
 #
@@ -32,7 +32,6 @@ if (MIR_FOUND)
   set(MIR_LIBRARIES ${MIR_LIBRARY})
   set(MIR_INCLUDE_DIRS ${PC_MIR_INCLUDE_DIRS})
   set(MIR_DEFINITIONS -DHAVE_MIR=1)
-
 endif()
 
 mark_as_advanced (MIR_LIBRARY MIR_INCLUDE_DIR)

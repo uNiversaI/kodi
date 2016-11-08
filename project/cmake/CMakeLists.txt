@@ -6,9 +6,6 @@ if(DEPENDS_DIR)
   list(APPEND CMAKE_PREFIX_PATH ${DEPENDS_DIR})
 endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3")
-
 # Set CORE_SOURCE_DIR and CORE_BUILD_DIR
 get_filename_component(CORE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/../.. ABSOLUTE)
 set(CORE_BUILD_DIR build)
@@ -210,7 +207,6 @@ if(NOT WIN32)
   if(OPENGL_FOUND)
     if (ENABLE_MIR)
       core_optional_dep(Mir ENABLE_MIR)
-      core_require_dep(EGL)
     else()
       core_optional_dep(X ENABLE_X11)
       core_optional_dep(XRandR ENABLE_X11)
@@ -231,7 +227,6 @@ if(NOT WIN32)
     core_require_dep(EGL)
   endif()
 endif()
-
 
 if(CORE_SYSTEM_NAME STREQUAL android OR CORE_SYSTEM_NAME STREQUAL linux)
   core_optional_dep(AML)
